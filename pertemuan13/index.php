@@ -3,8 +3,13 @@
 require 'functions.php';
 $mahasiswa = query("SELECT * FROM mahasiswa");
 
-?>
+// jika tombol cari ditekan
+if (isset($_POST["cari"]))
+{
+	$mahasiswa = cari($_POST["keyword"]);
+}
 
+?>
 
 
 <!DOCTYPE html>
@@ -19,6 +24,14 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
 
 	<a href="tambah.php">Tambah data mahasiswa</a>
 	<br>
+	<br>
+
+	<form action="" method="POST">
+		
+		<input type="text" name="keyword" size="40" autofocus placeholder="keyword pencarian" autocomplete="off">
+		<button type="submit" name="cari">Cari</button>
+
+	</form>
 	<br>
 
 	<table border="1" cellpadding="10" cellspacing="0">
@@ -38,14 +51,15 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
 		<tr>
 			<td><?= $i ?></td>
 			<td>
-				<a href="">ubah</a>
+				<a href="ubah.php?id=<?= $row["id"]; ?>">ubah</a>
 				|
 				<a href="hapus.php?id=<?= $row["id"]; ?>" onclick="
 				return confirm('apakah anda yakin ?');
 				">hapus</a>
 			</td>
 			<td>
-				<img src="img/mila.jpg" width="50">
+				
+				<img src="img/<?= $row['gambar']; ?>" width="50">
 			</td>
 			<td><?= $row["nrp"] ?></td>
 			<td><?= $row["nama"] ?></td>
