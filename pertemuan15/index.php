@@ -1,5 +1,15 @@
 <?php 
 
+session_start();
+
+// cek apakah user sudah login atau belum
+// jika belum lempar ke login.php
+if(!isset($_SESSION["login"]))
+{
+	header("Location: login.php");
+	exit;
+}
+
 require 'functions.php';
 $mahasiswa = query("SELECT * FROM mahasiswa");
 
@@ -23,6 +33,8 @@ if (isset($_POST["cari"]))
 	<title>Halaman Admin</title>
 </head>
 <body>
+
+	<a href=logout.php>logout</a>
 
 	<h1>Daftar Mahasiswa</h1>
 

@@ -1,5 +1,15 @@
 <?php 
 
+session_start();
+
+// cek apakah user sudah login atau belum
+// jika belum lempar ke login.php
+if(!isset($_SESSION["login"]))
+{
+	header("Location: login.php");
+	exit;
+}
+
 require 'functions.php';
 
 $id = $_GET['id'];

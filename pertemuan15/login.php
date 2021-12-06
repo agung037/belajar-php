@@ -1,5 +1,17 @@
 <?php 
 
+//nyalakan session
+session_start();
+
+
+// jika user sudah memiliki session login
+// redirect ke home
+if(isset($_SESSION["login"]))
+{
+    header("Location: index.php");
+    exit;
+}
+
 require 'functions.php';
 
     if(isset($_POST["login"]))
@@ -18,6 +30,10 @@ require 'functions.php';
 
             // verifikasi password
             if (password_verify($password, $row["password"])){
+
+                // jika berhasil set session
+                $_SESSION["login"] = true;
+
                 header("Location: index.php");
                 exit;
             };
@@ -40,6 +56,7 @@ require 'functions.php';
 </head>
 <body>
 
+<h1>Halaman Login</h1>
 <?php if(isset($error)) :?>
     <p style="color:red; font-style: italic">username / password salah</p>
 <?php endif; ?>
